@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="row row-cols-4 row-cols-md-7 mt-3">
+		{% for user in data %}
+			<div class="container-sm col mb-4">
+				<div class="card ml-auto mr-auto mt-auto" style="width: fit-content;">
+					<img src="{{ user['picture']['large'] }}" class="card-img-top" alt="">
+					<div class="card-body">
+						<h5 class="card-title">{{user['name']['first']}}</h5>
+						<p class="card-text">age: {{user['dob']['age']}}</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><i>{{user['location']['country']}}, {{ user['location']['city']}}</i></li>
+						<li class="list-group-item">{{ user['cell'] }}</li>
+					</ul>
+					<div class="card-body">
+						<a href="{{ url_for('users.get_user', user_id=user['_id']) }}" class="card-link">Card link</a>
+						<!-- <a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" class="card-link">Delete</a> -->
+						<a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" type="button" class="btn btn-primary">Delete</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock %}

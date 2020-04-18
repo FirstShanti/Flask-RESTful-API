@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:  
+  mongo:
+    image: mongo:latest
+    volumes:
+    - .data/mdata:/data/db
+    ports:
+     - "27017:27017"
+    command: mongod --port 27017 --bind_ip 0.0.0.0
+
+  server:
+    build: server/
+    ports:
+      - '5000:5000'
+    volumes:
+      - .:/users
+    depends_on:
+      - mongo
+
+  client:
+    build: client/
+    volumes:
+      - ./client:/var/www/html
+    ports:
+      - '5001:5001'
+    depends_on:
+      - server
+    # network_mode: host
