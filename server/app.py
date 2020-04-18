@@ -3,15 +3,13 @@ from flask import Flask, jsonify
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from converter import MongoJSONEncoder, ObjectIdConverter
-
+from config import Configuration
 
 app = Flask(__name__)
-
-app.config["MONGO_URI"] = 'mongodb://mongo:27017/test_database'
+app.config.from_object(Configuration)
 mongo = PyMongo(app)
 
+# converting mongodb ObjectId format to string
 app.json_encoder = MongoJSONEncoder
 app.url_map.converters['objectid'] = ObjectIdConverter
-
-collection = mongo.db.get_collection('users')
 

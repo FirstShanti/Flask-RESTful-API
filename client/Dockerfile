@@ -9,6 +9,6 @@ COPY . /client/
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["python", "main.py"]
 
-EXPOSE 8080
+EXPOSE 5001
