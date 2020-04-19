@@ -4,8 +4,8 @@ services:
   mongo:
     image: mongo:latest
     container_name: mongo
-    volumes:
-    - .data/mdata:/data/db
+    # volumes:
+    # - .data/mdata:/data/db
     ports:
      - "27017:27017"
     command: mongod --port 27017 --bind_ip 0.0.0.0
@@ -20,6 +20,10 @@ services:
       - .:/users
     depends_on:
       - mongo
+    environment:
+      - DEBUG=1 # 1/0
+      - COUNT_USERS=100 # int
+      - GENDER=male # male/female
 
   client:
     build: client/
@@ -31,3 +35,5 @@ services:
       - '5001:5001'
     depends_on:
       - server
+    environment:
+      - DEBUG=1

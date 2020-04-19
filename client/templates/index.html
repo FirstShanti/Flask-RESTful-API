@@ -2,7 +2,6 @@
 
 {% block content %}
 	<div class="row row-cols-4 row-cols-md-7 mt-3">
-		{% if data %}
 		{% for user in data %}
 			<div class="container-sm col mb-4">
 				<div class="card ml-auto mr-auto mt-auto" style="width: fit-content;">
@@ -17,16 +16,11 @@
 					</ul>
 					<div class="card-body">
 						<a href="{{ url_for('users.get_user', user_id=user['_id']) }}" class="card-link">Card link</a>
-						<!-- <a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" class="card-link">Delete</a> -->
 						<a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" type="button" class="btn btn-primary">Delete</a>
 					</div>
 				</div>
 			</div>
 		{% endfor %}
-		{% else %}
-			<div class="container-sm col mb-4">
-				Empty
-			</div>
-		{% endif %}
+
 	</div>
 {% endblock %}
