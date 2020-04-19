@@ -20,7 +20,8 @@ def get_user(user_id):
 	if res.status_code == 200:
 		user = res.json()['data']
 		return render_template('user_card.html', user=user)
-	abort(404, description="User not found")
+	flash(f'User {user_id} not found')
+	return redirect('/users')
 
 
 @users.route('/users/delete/<user_id>', methods=['GET'])
@@ -29,4 +30,5 @@ def delete_user(user_id):
 	if res.status_code == 200:
 		flash(f"user {res.json()['data']['user']} was deleted")
 		return redirect('/users')
-	abort(404, description="User not found")
+	flash(f'User {user_id} not found')
+	return redirect('/users')

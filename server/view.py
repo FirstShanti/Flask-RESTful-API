@@ -14,7 +14,7 @@ def users_list():
 	if users:
 		return jsonify({'message':'ok', 'data':users})
 	else:
-		return jsonify({'message':'error', 'data':'db is empty'})
+		return jsonify({'message':'error', 'data':'db is empty'}), 404
 
 # get single user by id
 @users.route('/users/<user_id>', methods=['GET'])
@@ -24,9 +24,9 @@ def get_user(user_id):
 		if user:
 			return jsonify({'message':'ok', 'data':user})
 		else:
-			return jsonify({'message':'error', 'data':'user not found'})
+			return jsonify({'message':'error', 'data':'user not found'}), 404
 	else:
-		return jsonify({'message':'error', 'data':'invalid user id'})
+		return jsonify({'message':'error', 'data':'invalid user id'}), 404
 
 # delete single user by id
 @users.route('/users/<user_id>', methods=['DELETE'])
@@ -36,5 +36,5 @@ def delete_user(user_id):
 			collection.delete_one({'_id':ObjectId(user_id)})
 			return jsonify({'message':'ok', 'data':{'status':'deleted', 'user':user_id}})
 		else:
-			return jsonify({'message':'error', 'data':'user not found'})
-	return jsonify({'message':'error', 'data':'invalid user id'})
+			return jsonify({'message':'error', 'data':'user not found'}), 404
+	return jsonify({'message':'error', 'data':'invalid user id'}), 404
