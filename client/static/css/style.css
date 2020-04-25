@@ -1,0 +1,16 @@
+body {
+	background-color: gray;
+}
+
+.container {
+	box-shadow: 2px 2px 5px 1px, grey
+}
+
+.table td, .table th {
+    vertical-align: middle !important;
+}
+
+.list-group-item {
+	width: fit-content;
+    margin: auto;
+}
