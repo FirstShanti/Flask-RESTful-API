@@ -4,11 +4,8 @@ services:
   mongo:
     image: mongo:latest
     container_name: mongo
-    # volumes:
-    # - .data/mdata:/data/db
     ports:
      - "27017:27017"
-    command: mongod --port 27017 --bind_ip 0.0.0.0
 
   server:
     build: server/
@@ -17,7 +14,7 @@ services:
     ports:
       - '5000:5000'
     volumes:
-      - .:/users
+      - ./server:/server
     depends_on:
       - mongo
     environment:
@@ -30,10 +27,22 @@ services:
     image: client
     container_name: client
     volumes:
-      - ./client
+      - ./client:/client/
     ports:
       - '5001:5001'
     depends_on:
       - server
     environment:
       - DEBUG=1
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - '80:80'
+    # volumes:
+    #   - client:/etc/nginx/client/static/
+    volumes:
+      - ./nginx/conf.d/Flask_API.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - client
