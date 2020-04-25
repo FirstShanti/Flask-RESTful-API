@@ -1,6 +1,6 @@
 import os 
 
-DB_HOST = 'http://server:5000/'
+API_HOST = 'http://server:5000/api/'
 
 class Configuration(object):
 	DEBUG = os.environ.get('DEBUG')
