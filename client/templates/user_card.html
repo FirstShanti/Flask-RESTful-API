@@ -1,21 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="container-sm col mb-4">
-		<div class="card ml-auto mr-auto mt-auto" style="width: fit-content;">
-			<img src="{{ user['picture']['large'] }}" class="card-img-top" alt="">
-			<ul class="list-group list-group-flush">
+	<div class="container-sm col mb-4 mt-5">
+		<div class="card ml-auto mr-auto mt-auto" style="width: fit-content; border: none;">
+			<img src="{{ user['picture']['large'] }}" class="card-img-top" style="width: 200px; height: 200px; margin: auto;" alt="">
+			<ul class="list-group list-group-flush" style="text-align: center ">
 			{% for data in user %}
 				{% if user[data] is mapping %}
 					{% for key in user[data] %}
-						<li class="list-group-item">{{ key }}: {{ user[data][key] }}</li>
+						<li class="list-group-item"><b>{{ key }}</b>: {{ user[data][key] }}</li>
 					{% endfor %}
 				{% else %}
-					<li class="list-group-item">{{ data }}: {{ user[data] }}</li>
+					<li class="list-group-item"><b>{{ data }}</b>: {{ user[data] }}</li>
 				{% endif %}
 			{% endfor %}
 			</ul>
 		</div>
 	</div>
-	<script src="js/scripts.js"></script>
 {% endblock %}
