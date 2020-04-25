@@ -11,10 +11,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update
 RUN apt-get install nano
 
-ENV DEBUG=1
+ENV DEBUG=0
 ENV COUNT_USERS=100
 ENV GENDER=female
 
+
+ENTRYPOINT ["python", "fill_db.py"]
 ENTRYPOINT ["python", "main.py"]
 
 EXPOSE 5000 
