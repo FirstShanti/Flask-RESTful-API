@@ -1,26 +1,39 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
-	<div class="row row-cols-4 row-cols-md-7 mt-3">
-		{% for user in data %}
-			<div class="container-sm col mb-4">
-				<div class="card ml-auto mr-auto mt-auto" style="width: fit-content;">
-					<img src="{{ user['picture']['large'] }}" class="card-img-top" alt="">
-					<div class="card-body">
-						<h5 class="card-title">{{user['name']['first']}}</h5>
-						<p class="card-text">age: {{user['dob']['age']}}</p>
-					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><i>{{user['location']['country']}}, {{ user['location']['city']}}</i></li>
-						<li class="list-group-item">{{ user['cell'] }}</li>
-					</ul>
-					<div class="card-body">
+<div class="container row-cols-1">
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Photo</th>
+				<th scope="col">Name</th>
+				<th scope="col">Age</th>
+				<th scope="col">Country</th>
+				<th scope="col">City</th>
+				<th scope="col">Phone</th>
+				<th scope="col"></th>
+				<th scope="col">Detail</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in data %}
+			<tr>
+				<th scope="row">{{ loop.index }}</th>
+				<td><img src="{{ user['picture']['large'] or user['picture']['medium'] }}" style='border-radius: 50%;' class="card-img-top" alt=""></td>
+					<td>{{ user['name']['first'] }}</td>
+					<td>{{ user['dob']['age'] }}</td>
+					<td>{{ user['location']['country'] }}</td>
+					<td>{{ user['location']['city'] }}</td>
+					<td colspan='2'>{{ user['cell'] }}</td>
+					<td>
 						<a href="{{ url_for('users.get_user', user_id=user['_id']) }}" class="card-link">Card link</a>
-						<a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" type="button" class="btn btn-primary">Delete</a>
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-
+						<a href="{{ url_for('users.delete_user', user_id=user['_id']) }}" data-id="{{user['_id']}}" id='delete-item' type="button" class="btn btn-primary">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
 {% endblock %}
